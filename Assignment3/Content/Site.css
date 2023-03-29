@@ -1,0 +1,84 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    color:white;
+    border-color: #fff;
+   
+}
+
+.navbar {
+    background-color: #191970;
+    color: white;
+}
+
+
+
+h2 {
+    font-family: 'Century Gothic';
+    font-weight: bold;
+    background-color: #CCCCFF;
+}
+
+.profile {
+    text-align: center;
+    padding: 1em;
+}
+
+.profile img{
+    height:200px;
+}
+
+.profile h3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+
+}
+
+.teacherlist {
+    text-align: center;
+    padding: 1em;
+    margin: 1em;
+}
+
+.teacherlist p{
+    font-size : 1em;
+    padding:1em;
+}
+
+.teachername{
+    padding:5px;
+    margin:auto;
+}
+
+.teachername a {
+    text-decoration: none;
+    color: #191970;
+    font-size:1em;
+}
+
+
+.teachername a:hover {
+    background-color: #5F9EA0;
+    color: white;
+}
+
+
+
+ 

@@ -1,0 +1,19 @@
+﻿
+@model Assignment3.Models.Teacher
+
+@Styles.Render("~/Content/Site.css")
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<div class="profile">
+    <h2>Teacher Profile</h2>
+    <div><img src="/content/images/profile.jpg" alt="Teacher's Profile Picture" /></div>
+    <h3>@Model.TeacherFname @Model.TeacherLname   </h3>
+
+    <h4> Employee Number : @Model.TeacherEmployeeNo</h4>
+    <h4> Hire Date : @Model.HireDate</h4>
+    <h4> Salary : @Model.Salary</h4>
+
+</div>

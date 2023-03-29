@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Assignment3.Models.Student>
+
+@Styles.Render("~/Content/Site.css")
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="teacherlist">
+
+    <h2>Our Students</h2>
+
+
+    <p> Here is the List of all Students </p>
+
+
+    @foreach (var student in Model)
+    {
+        <div class="teachername"> @student.StudentFname @student.StudentLname</div>
+    }
+
+</div>
