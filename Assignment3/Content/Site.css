@@ -29,12 +29,24 @@ textarea {
 }
 
 
+.tab {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+    font-size: 1.5em;
+}
+
+
+.tab2{
+    color:red;
+}
 
 h2 {
     font-family: 'Century Gothic';
     font-weight: bold;
     background-color: #CCCCFF;
 }
+
 
 .profile {
     text-align: center;

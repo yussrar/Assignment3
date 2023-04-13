@@ -22,12 +22,13 @@ namespace Assignment3.Controllers
         /// </summary>
         /// <example> Get api/TeacherData/ListTeachers </example>
         /// <returns>
-        /// A list of teachers with first and last name
+        /// returns teacher objects
         /// </returns>
 
         [HttpGet]
+        [Route("api/TeacherData/ListTeachers/{SearchKey?}")]
 
-        public IEnumerable<Teacher> ListTeachers()
+        public IEnumerable<Teacher> ListTeachers(string SearchKey=null)
         {
             //creating a instance of connection
             MySqlConnection Conn= school.AccessDatabase();
@@ -37,8 +38,10 @@ namespace Assignment3.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //query
-            cmd.CommandText = "Select * from teachers";
+            cmd.CommandText = "Select * from teachers where lower(teacherfname) like lower (@key) or lower(teacherlname) like lower(@key) or lower(concat(teacherfname,' ',teacherlname)) like lower(@key) ";
 
+            cmd.Parameters.AddWithValue("@key", "%" + SearchKey + "%");
+            cmd.Prepare();
            // storing the result of query in a variable 
            MySqlDataReader ResultSet = cmd.ExecuteReader();
 
@@ -76,6 +79,14 @@ namespace Assignment3.Controllers
             return Teachers;
         }
 
+
+        /// <summary>
+        /// it will return a teacher whose id is passed as parameter
+        /// </summary>
+        /// <example> Get api/TeacherData/FindTeacher/3 </example>
+        /// <returns>
+        /// returns teacher object
+        /// </returns>
         [HttpGet]
         public Teacher FindTeacher(int id)
         {
@@ -120,6 +131,64 @@ namespace Assignment3.Controllers
                 return newTeacher;
 
         }
+
+        
+        /// <summary>
+        /// it will add a new teacher in the database
+        /// </summary>
+        [HttpPost]
+        public void AddTeacher(Teacher NewTeacher)
+        {
+            //Create instance of connection
+            MySqlConnection conn = school.AccessDatabase();
+
+            //opening connection between server and database
+            conn.Open();
+
+            //creating command for database
+            MySqlCommand cmd = conn.CreateCommand();
+
+            //SQL Query 
+            cmd.CommandText = "insert into teachers (teacherfname, teacherlname, employeenumber, salary, hiredate) values (@TeacherFname, @TeacherLname, @TeacherEmployeeNo, @Salary, @HireDate)";
+            cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.TeacherLname);
+            cmd.Parameters.AddWithValue("@TeacherEmployeeNo", NewTeacher.TeacherEmployeeNo);
+            cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+            cmd.Parameters.AddWithValue("@HireDate", NewTeacher.HireDate);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        /// <summary>
+        /// it will delete the teacher from the database whose id is sent as parameter
+        /// </summary>
+        //POST: /api/TeacherData/DeleteTeacher/3
+        [HttpPost]
+        public void DeleteTeacher(int id)
+        {
+            //Create instance of connection
+            MySqlConnection conn = school.AccessDatabase();
+
+            //opening connection between server and database
+            conn.Open();
+
+            //creating command for database
+            MySqlCommand cmd = conn.CreateCommand();
+
+            //SQL Query 
+            cmd.CommandText = "Delete from teachers where teacherid=@id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+
 
     }
 }

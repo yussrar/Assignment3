@@ -1,0 +1,23 @@
+﻿@model Assignment3.Models.Teacher
+
+@Styles.Render("~/Content/Site.css")
+
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<a class="tab" href="/teacher/show/@Model.TeacherId">Cancel</a>
+
+
+<h3>Are you sure you want to delete @Model.TeacherFname @Model.TeacherLname ?</h3>
+
+
+<form method="POST" action="/Teacher/Delete/@Model.TeacherId">
+    <button class="tab" style="color:red;" href="">Confirm Delete</button>
+</form>
+
+
+
+
+
