@@ -6,13 +6,16 @@
     ViewBag.Title = "List";
 }
 
+<div class="tab">
+    <a class="tab1" href="/teacher/New">New Teacher</a>
+</div>
 <div class="teacherlist">
 
     <h2>Our Teachers</h2>
 
     <form action="/Teacher/List" method="GET">
-        <input type="text" name="SearchKey"/>
-        <input type="submit" value="Search"/>
+        <input type="text" name="SearchKey" />
+        <input type="submit" value="Search" />
     </form>
 
     <p> Here is the List of all Teachers </p>
