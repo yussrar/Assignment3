@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Http;
 using Assignment3.Models;
 using MySql.Data.MySqlClient;
+using Mysqlx.Datatypes;
 
 namespace Assignment3.Controllers
 {
@@ -188,6 +189,31 @@ namespace Assignment3.Controllers
             conn.Close();
         }
 
+        public void UpdateTeacher(int id, [FromBody]Teacher TeacherInfo)
+        {
+            //Create instance of connection
+            MySqlConnection conn = school.AccessDatabase();
+
+            //opening connection between server and database
+            conn.Open();
+
+            //creating command for database
+            MySqlCommand cmd = conn.CreateCommand();
+
+            //SQL Query 
+            cmd.CommandText = "update teachers set teacherfname=@TeacherFname, teacherlname=@TeacherLname, employeenumber=@TeacherEmployeeNo, salary=@Salary, hiredate=@HireDate" ;
+            cmd.Parameters.AddWithValue("@TeacherFname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@TeacherEmployeeNo", TeacherInfo.TeacherEmployeeNo);
+            cmd.Parameters.AddWithValue("@Salary", TeacherInfo.Salary);
+            cmd.Parameters.AddWithValue("@HireDate", TeacherInfo.HireDate);
+            cmd.Parameters.AddWithValue("@TeacherId", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
 
 
     }

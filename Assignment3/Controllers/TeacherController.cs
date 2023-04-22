@@ -79,15 +79,68 @@ namespace Assignment3.Controllers
 
         }
 
-
-        //This controller is to delete teacher
-        //POST: /Teacher/Delete/{id}
+        /// <summary>
+        /// This controller is to delete teacher
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> return a webpage with list of the teacher</returns>
+        /// <example> //POST: /Teacher/Delete/{id}</example>
         public ActionResult Delete(int id)
         {
 
             TeacherDataController controller = new TeacherDataController();
             controller.DeleteTeacher(id);
             return RedirectToAction("List");
+        }
+
+        /// <summary>
+        /// This controller is to update teacher
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>return a webpage where we can edit the information about selected teacher</returns>
+        /// <example>POST: /Teacher/update/{id} </example>
+        [HttpPost]
+        public ActionResult Update(int id)
+        {
+            TeacherDataController controller = new TeacherDataController(); 
+            Teacher SelectedTeacher = controller.FindTeacher(id);
+            return View(SelectedTeacher);
+        }
+
+        /// <summary>
+        /// Receives a POST request containing information about an existing teacher in the
+        /// system, with new values. Conveys this information to the API, and redirects to 
+        /// "show teacher" page of our updated teacher
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="teacherFname"></param>
+        /// <param name="teacherLname"></param>
+        /// <param name="TeacherEmployeeNo"></param>
+        /// <param name="Salary"></param>
+        /// <param name="HireDate"></param>
+        /// <returns>A dynamic webpage which provides the current information of the teacher</returns>
+        /// <example> POST: /Teacher/Update/{id} </example>
+        public ActionResult Update(int id, string teacherFname, string teacherLname, string TeacherEmployeeNo, int Salary, DateTime HireDate)
+
+        {
+            Teacher TeacherInfo= new Teacher();
+
+            Debug.WriteLine(teacherFname);
+            Debug.WriteLine(teacherLname);
+            Debug.WriteLine(TeacherEmployeeNo);
+            Debug.WriteLine(Salary);
+            Debug.WriteLine(HireDate);
+
+            TeacherInfo.TeacherLname = teacherLname;
+            TeacherInfo.TeacherFname = teacherFname;
+            TeacherInfo.TeacherEmployeeNo = TeacherEmployeeNo;
+            TeacherInfo.HireDate = HireDate;
+            TeacherInfo.Salary = Salary;
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.UpdateTeacher(id, TeacherInfo);
+
+            return RedirectToAction("Show/" + id);
         }
 
     }
